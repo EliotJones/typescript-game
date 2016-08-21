@@ -31,7 +31,15 @@ namespace Splods.Main{
         }
 
         update(){
-            this.grid.informOfAge();
+            this.grid.informOfFrame();
+        }
+
+        mouseMove = (pointer: Phaser.Pointer, x: number, y: number, isClick: boolean) : void => {
+            if (isClick) {
+                return;
+            }
+
+            this.gridViewModel.informOfMouseLocation(x, y);
         }
     }
 }

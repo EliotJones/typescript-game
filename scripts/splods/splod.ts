@@ -2,10 +2,12 @@ namespace Splods.Splods{
     export const SPLOD_INITIAL_SIZE = 16;
 
     export class Splod{
-        private static maxGen : number = (Environment.TILESIZE - SPLOD_INITIAL_SIZE) / 2;
+        public static maxGen : number = (Environment.TILESIZE - SPLOD_INITIAL_SIZE) / 2;
         private onAge = new LiteEvent<number>();
+        private onKill = new LiteEvent<void>();
         
         public get OnAge() : ILiteEvent<number> { return this.onAge; }
+        public get OnKill() : ILiteEvent<void> { return this.onKill; }
 
         tile:Environment.Tile;
         generation:number;
@@ -17,7 +19,7 @@ namespace Splods.Splods{
             this.generation = 0;          
         }
 
-        age() : void {
+        public age() : void {
             if(this.generation == Splod.maxGen){
                 return;
             }
@@ -28,6 +30,10 @@ namespace Splods.Splods{
                 this.generation++;
                 this.onAge.trigger(this.generation);
             }
+        }
+
+        public kill() : void{
+            this.onKill.trigger();
         }
     }
 }
